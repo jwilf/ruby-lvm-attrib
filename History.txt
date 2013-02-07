@@ -1,3 +1,7 @@
+=== 0.0.2 / 2013-02-07
+
+* jwilf - Added support for LVM 2.02.95(2)
+
 === 0.0.1 / 2008-07-21
 
 * 1 major enhancement

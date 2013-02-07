@@ -28,6 +28,8 @@ TYPE_CONVERSION_MAP = {
  "lvkmin" => "Integer",
  "snpercent" => "Float",
  "copypercent" => "Float",
+ "datapercent" => "Float",
+ "metadatapercent" => "Float",
  # size32/64, these do unit formatting unless overridden on command line. We
  # typically want them in bytes so we can convert them to Integers safely
  "size32" => "Integer",
@@ -39,15 +41,26 @@ TYPE_CONVERSION_MAP = {
  "pvfree" => "Integer",
  "pvused" => "Integer",
  "pvmdafree" => "Integer",
+ "pvmdasize" => "Integer",
+ "pvmdasused" => "Integer",
+ "snapcount" => "Integer",
+ "thincount" => "Integer",
+ "thinzero" => "Integer",
+ "transactionid" => "Integer",
  "vgsize" => "Integer",
  "vgfree" => "Integer",
  "vgmda_free" => "Integer",
+ "vgmdasused" => "Integer",
+ "vgmdasize" => "Integer",
+ "vgmdacopies" => "Integer",
  "chunksize" => "Integer",
  "segstart" => "Integer",
  "segsize" => "Integer",
  "vgmdafree" => "Integer",
  # Weird one, can be "auto" or size32
- "lvreadahead" => "String"
+ "lvreadahead" => "String",
+ "lvmetadatasize" => "Integer",
+ "originsize" => "Integer"
 }
 
 lvm_source = ARGV[0]
@@ -76,7 +89,7 @@ File.readlines(lvm_source + COLUMNS_FILE).each do |line|
     if general_type == "NUM"
       attribute_type = TYPE_CONVERSION_MAP[specific_type]
       if attribute_type.nil?
-        puts "Oops, missing type conversion data of column '#{attribute}' use by '#{app}' which says its going to return a '#{specific_type}'"
+        puts "Oops, missing type conversion data of column '#{column}' use by '#{app}' which says its going to return a '#{specific_type}'"
         puts "Figure out the missing type and rerun."
         exit 1
       end
